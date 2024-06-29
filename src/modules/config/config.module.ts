@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
+
 import { ConfigService } from './config.service';
 
 @Module({
@@ -10,4 +11,17 @@ import { ConfigService } from './config.service';
   ],
   exports: [ConfigService],
 })
-export class ConfigModule {}
+export class ConfigModule {
+  static forRoot(): DynamicModule {
+    return {
+      module: ConfigModule,
+      providers: [
+        {
+          provide: ConfigService,
+          useValue: new ConfigService('.env'),
+        },
+      ],
+      exports: [ConfigService],
+    };
+  }
+}

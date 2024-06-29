@@ -1,15 +1,25 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
-import { AuthModule } from './../auth';
-import { CommonModule } from './../common';
 import { ConfigModule, ConfigService } from './../config';
+import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './../auth';
+import { CartModule } from 'modules/cart/cart.module';
+import { CategoryModule } from 'modules/category/category.module';
+import { CommonModule } from './../common';
+import { CouponModule } from 'modules/coupon/coupon.module';
+import { Module } from '@nestjs/common';
+import { NotificationModule } from 'modules/notification/notification.module';
+import { OrderModule } from 'modules/order/order.module';
+import { ProductModule } from 'modules/product/product.module';
+import { ReviewModule } from 'modules/review/review.module';
+import { StripeModule } from 'modules/stripe/stripe.module';
+import { UserModule } from 'modules/user';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule, StripeModule.forRootAsync()],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         return {
@@ -27,6 +37,15 @@ import { AppService } from './app.service';
     ConfigModule,
     AuthModule,
     CommonModule,
+    ProductModule,
+    CouponModule,
+    NotificationModule,
+    ReviewModule,
+    UserModule,
+    StripeModule,
+    OrderModule,
+    CartModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

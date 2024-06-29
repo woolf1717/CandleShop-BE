@@ -2,7 +2,8 @@ import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { User, UserFillableFields } from './user.entity';
+import { User } from './user.entity';
+import { UserPayload } from './user.payload';
 
 @Injectable()
 export class UsersService {
@@ -19,7 +20,7 @@ export class UsersService {
     return await this.userRepository.findOne({ email });
   }
 
-  async create(payload: UserFillableFields) {
+  async create(payload: UserPayload) {
     const user = await this.getByEmail(payload.email);
 
     if (user) {
