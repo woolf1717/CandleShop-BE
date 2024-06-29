@@ -41,6 +41,7 @@ import { join } from 'path';
         } as TypeOrmModuleAsyncOptions;
       },
     }),
+
     FileStreamModule,
     PhotoModule,
     ConfigModule,
