@@ -2,11 +2,14 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
 import { Product } from 'modules/product/product.entity';
+import { ProductPayload } from 'modules/product/product.payload';
 import { User } from 'modules/user';
+import { UserPayload } from 'modules/user/user.payload';
 
 export class CartPayload {
   @ApiProperty({
     required: true,
+    example: 1,
   })
   @IsNotEmpty()
   @IsNumber()
@@ -14,6 +17,7 @@ export class CartPayload {
 
   @ApiProperty({
     required: true,
+    example: 1,
   })
   @IsNotEmpty()
   @IsNumber()
@@ -21,6 +25,7 @@ export class CartPayload {
 
   @ApiProperty({
     required: true,
+    example: 1,
   })
   @IsNotEmpty()
   @IsNumber()
@@ -28,6 +33,7 @@ export class CartPayload {
 
   @ApiProperty({
     required: true,
+    example: 1,
   })
   @IsNotEmpty()
   @IsNumber()
@@ -38,12 +44,12 @@ export class CartPayload {
     type: () => User,
   })
   @IsNotEmpty()
-  user: User;
+  user: UserPayload;
 
   @ApiProperty({
     required: true,
     type: () => Product,
   })
   @IsNotEmpty()
-  product: Product;
+  product: ProductPayload;
 }

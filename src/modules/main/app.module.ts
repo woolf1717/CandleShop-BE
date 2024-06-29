@@ -8,16 +8,23 @@ import { CartModule } from 'modules/cart/cart.module';
 import { CategoryModule } from 'modules/category/category.module';
 import { CommonModule } from './../common';
 import { CouponModule } from 'modules/coupon/coupon.module';
+import { FileStreamModule } from 'modules/file-stream/file-stream.module';
 import { Module } from '@nestjs/common';
 import { NotificationModule } from 'modules/notification/notification.module';
 import { OrderModule } from 'modules/order/order.module';
+import { PhotoModule } from 'modules/photo/photo.module';
 import { ProductModule } from 'modules/product/product.module';
 import { ReviewModule } from 'modules/review/review.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { StripeModule } from 'modules/stripe/stripe.module';
 import { UserModule } from 'modules/user';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule, StripeModule.forRootAsync()],
       inject: [ConfigService],
@@ -34,6 +41,8 @@ import { UserModule } from 'modules/user';
         } as TypeOrmModuleAsyncOptions;
       },
     }),
+    FileStreamModule,
+    PhotoModule,
     ConfigModule,
     AuthModule,
     CommonModule,
